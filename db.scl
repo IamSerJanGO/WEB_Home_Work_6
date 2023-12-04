@@ -1,0 +1,29 @@
+CREATE TABLE groups (
+    id serial PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE students (
+    id serial PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    group_id INTEGER REFERENCES groups(id)
+);
+
+CREATE TABLE teachers (
+    id serial PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE subjects (
+    id SERIAL PRIMARY KEY,
+    subject_name VARCHAR(100) NOT NULL,
+    teacher_id INTEGER REFERENCES teachers(id)
+);
+
+CREATE TABLE grades (
+    id serial PRIMARY KEY,
+    student_id INTEGER REFERENCES students(id),
+    subject_id INTEGER REFERENCES subjects(id),
+    grade INTEGER CHECK (grade >= 0 AND grade <= 100),
+    grade_date DATE NOT NULL
+);
